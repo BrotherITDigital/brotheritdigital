@@ -25,7 +25,7 @@ class AdminPortfolioController extends Controller
     {
         $data = $request->validate([
             'title'             => 'required|string|max:255',
-            'category'          => 'required|in:website,mobile,uiux',
+            'category'          => 'required|in:website,mobile,uiux,wordpress_landing,custom_code_landing',
             'short_description' => 'required|string|max:500',
             'description'       => 'nullable|string',
             'technologies'      => 'nullable|string',
@@ -62,7 +62,7 @@ class AdminPortfolioController extends Controller
     {
         $data = $request->validate([
             'title'             => 'required|string|max:255',
-            'category'          => 'required|in:website,mobile,uiux',
+            'category'          => 'required|in:website,mobile,uiux,wordpress_landing,custom_code_landing',
             'short_description' => 'required|string|max:500',
             'description'       => 'nullable|string',
             'technologies'      => 'nullable|string',
