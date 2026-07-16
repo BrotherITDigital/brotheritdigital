@@ -47,6 +47,17 @@ Route::get('/lang/{locale}', function (string $locale) {
     return back();
 })->name('lang.switch');
 
+/* ===== RUN MIGRATIONS ROUTE ===== */
+Route::get('/run-migrations', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
+        return '<h1>Migrations and seeders ran successfully!</h1><p><a href="/">Go to Home</a></p>';
+    } catch (\Exception $e) {
+        return 'Error running migrations: ' . $e->getMessage();
+    }
+});
+
 /* ===== AUTH ROUTES ===== */
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])
     ->name('login')->middleware('guest');
