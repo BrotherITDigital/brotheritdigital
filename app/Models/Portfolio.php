@@ -13,7 +13,7 @@ class Portfolio extends Model
         'title', 'slug', 'short_description', 'description',
         'technologies', 'live_url', 'github_url', 'category',
         'client', 'completed_at', 'is_featured', 'is_active',
-        'order', 'thumbnail', 'gallery', 'meta_title', 'meta_description',
+        'order', 'thumbnail', 'pdf_file', 'gallery', 'meta_title', 'meta_description',
     ];
 
     protected $casts = [

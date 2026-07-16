@@ -34,6 +34,7 @@ class AdminPortfolioController extends Controller
             'client'            => 'nullable|string|max:255',
             'completed_at'      => 'nullable|date',
             'thumbnail'         => 'nullable|image|max:2048',
+            'pdf_file'          => 'nullable|file|mimes:pdf|max:10240',
             'is_featured'       => 'boolean',
             'is_active'         => 'boolean',
             'order'             => 'integer|min:0',
@@ -47,6 +48,10 @@ class AdminPortfolioController extends Controller
 
         if ($request->hasFile('thumbnail')) {
             $data['thumbnail'] = $request->file('thumbnail')->store('uploads/portfolios', 'public');
+        }
+
+        if ($request->hasFile('pdf_file')) {
+            $data['pdf_file'] = $request->file('pdf_file')->store('uploads/portfolios/pdfs', 'public');
         }
 
         Portfolio::create($data);
@@ -71,6 +76,7 @@ class AdminPortfolioController extends Controller
             'client'            => 'nullable|string|max:255',
             'completed_at'      => 'nullable|date',
             'thumbnail'         => 'nullable|image|max:2048',
+            'pdf_file'          => 'nullable|file|mimes:pdf|max:10240',
             'is_featured'       => 'boolean',
             'is_active'         => 'boolean',
             'order'             => 'integer|min:0',
@@ -87,6 +93,11 @@ class AdminPortfolioController extends Controller
             $data['thumbnail'] = $request->file('thumbnail')->store('uploads/portfolios', 'public');
         }
 
+        if ($request->hasFile('pdf_file')) {
+            if ($portfolio->pdf_file) Storage::disk('public')->delete($portfolio->pdf_file);
+            $data['pdf_file'] = $request->file('pdf_file')->store('uploads/portfolios/pdfs', 'public');
+        }
+
         $portfolio->update($data);
         return redirect()->route('admin.portfolios.index')->with('success', 'Portfolio updated successfully!');
     }
@@ -94,6 +105,7 @@ class AdminPortfolioController extends Controller
     public function destroy(Portfolio $portfolio)
     {
         if ($portfolio->thumbnail) Storage::disk('public')->delete($portfolio->thumbnail);
+        if ($portfolio->pdf_file) Storage::disk('public')->delete($portfolio->pdf_file);
         $portfolio->delete();
         return redirect()->route('admin.portfolios.index')->with('success', 'Portfolio deleted.');
     }

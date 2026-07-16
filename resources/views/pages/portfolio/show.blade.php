@@ -84,7 +84,9 @@
                         
                         <div>
                             <span style="font-size: .75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: .05em; display: block; margin-bottom: .25rem;">Category</span>
-                            <span style="font-weight: 600; color: var(--text-main); font-size: .9375rem;">{{ ucfirst($portfolio->category) }}</span>
+                            <span style="font-weight: 600; color: var(--text-main); font-size: .9375rem;">
+                                {{ $portfolio->category === 'wordpress_landing' ? 'WordPress Landing Page' : ($portfolio->category === 'custom_code_landing' ? 'Custom Code Landing Page' : ($portfolio->category === 'uiux' ? 'UI/UX Design' : ($portfolio->category === 'mobile' ? 'Mobile App' : 'Website'))) }}
+                            </span>
                         </div>
 
                         @if($portfolio->completed_at)
@@ -107,6 +109,11 @@
 
                     {{-- Actions --}}
                     <div style="display: flex; flex-direction: column; gap: .75rem; margin-top: 2rem;">
+                        @if($portfolio->pdf_file)
+                        <a href="{{ asset('storage/' . $portfolio->pdf_file) }}" target="_blank" rel="noopener" class="btn" style="display: flex; justify-content: center; text-align: center; gap: .5rem; background: #EF4444; border: 1px solid #EF4444; color: #fff;" id="portfolio-pdf-btn">
+                            <i class="fas fa-file-pdf"></i> View High-Res PDF Demo
+                        </a>
+                        @endif
                         @if($portfolio->live_url)
                         <a href="{{ $portfolio->live_url }}" target="_blank" rel="noopener" class="btn btn-primary" style="display: flex; justify-content: center; text-align: center;" id="portfolio-live-btn">
                             <i class="fas fa-external-link-alt"></i> Visit Live Website

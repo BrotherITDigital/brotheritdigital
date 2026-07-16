@@ -155,6 +155,20 @@
             </div>
         </div>
 
+        {{-- PDF Demo Upload (Conditionally shown for landing pages) --}}
+        <div class="form-group" id="pdf-upload-container" style="display:none; border: 1px solid #E2E8F0; padding: 1.25rem; border-radius: .75rem; background: #F8FAFC; margin-bottom: .5rem;">
+            <label for="pdf_file" style="font-weight:600; color:#0F172A; display:block; margin-bottom:.5rem;">
+                <i class="fas fa-file-pdf" style="color:#EF4444; margin-right:.375rem;"></i> Upload PDF Demo (Optional)
+            </label>
+            <input type="file" id="pdf_file" name="pdf_file" class="form-control @error('pdf_file') error @enderror" accept=".pdf">
+            <span style="font-size:.75rem; color:#64748B; margin-top:.375rem; display:block; line-height:1.4;">
+                Allows viewers to open this PDF in full resolution to view details. Max size: 10MB (PDF format only).
+            </span>
+            @error('pdf_file')
+            <span style="color:#EF4444; font-size:.75rem; margin-top:.25rem; display:block;">{{ $message }}</span>
+            @enderror
+        </div>
+
         {{-- Featured & Active Toggles --}}
         <div style="display:flex; gap:2rem; border-top:1px solid #E2E8F0; border-bottom:1px solid #E2E8F0; padding:1rem 0;">
             <div style="display:flex; align-items:center; gap:.5rem;">
@@ -249,5 +263,25 @@
             alert('Thumbnail file input not found!');
         }
     }
+
+    // Toggle PDF field based on category selection
+    document.addEventListener('DOMContentLoaded', () => {
+        const categorySelect = document.getElementById('category');
+        const pdfContainer = document.getElementById('pdf-upload-container');
+
+        if (categorySelect && pdfContainer) {
+            function togglePdfField() {
+                const val = categorySelect.value;
+                if (val === 'wordpress_landing' || val === 'custom_code_landing') {
+                    pdfContainer.style.display = 'block';
+                } else {
+                    pdfContainer.style.display = 'none';
+                }
+            }
+
+            categorySelect.addEventListener('change', togglePdfField);
+            togglePdfField(); // Run on load
+        }
+    });
 </script>
 @endpush
