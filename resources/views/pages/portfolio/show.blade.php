@@ -27,7 +27,41 @@
 {{-- Detail Section --}}
 <section class="section-padding">
     <div class="container-custom">
-        <div style="display: grid; grid-template-columns: 2.2fr 1fr; gap: 4rem; align-items: start;">
+        
+        <style>
+            .portfolio-detail-container {
+                display: grid;
+                grid-template-columns: 2.2fr 1fr;
+                gap: 4rem;
+                align-items: start;
+            }
+            .portfolio-card-content {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                padding: 3rem;
+            }
+            .portfolio-sidebar-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                padding: 2.5rem;
+            }
+            @media (max-width: 991px) {
+                .portfolio-detail-container {
+                    grid-template-columns: 1fr;
+                    gap: 2.5rem;
+                }
+                .portfolio-card-content {
+                    padding: 1.75rem;
+                }
+                .portfolio-sidebar-card {
+                    padding: 1.75rem;
+                }
+            }
+        </style>
+
+        <div class="portfolio-detail-container">
             
             {{-- Main Description --}}
             <article class="reveal-left" style="display: flex; flex-direction: column; gap: 2.5rem;">
@@ -44,7 +78,7 @@
                 </div>
 
                 {{-- Full Description --}}
-                <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 3rem;">
+                <div class="portfolio-card-content">
                     <h2 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 1.25rem;">Project Overview</h2>
                     <div style="color: var(--text-muted); line-height: 1.8; font-size: 1rem; margin-bottom: 2rem;">
                         {!! nl2br(e($portfolio->description)) !!}
@@ -53,7 +87,7 @@
 
                 {{-- Image Gallery --}}
                 @if($portfolio->gallery && count($portfolio->gallery))
-                <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 3rem;">
+                <div class="portfolio-card-content">
                     <h3 style="font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 1.5rem;">Project Gallery</h3>
                     <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem;">
                         @foreach($portfolio->gallery as $image)
@@ -70,7 +104,7 @@
             <aside class="reveal-right" style="display: flex; flex-direction: column; gap: 2rem;">
                 
                 {{-- Project Specs --}}
-                <div style="background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2.5rem;">
+                <div class="portfolio-sidebar-card">
                     <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--text-main); margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: .75rem;">
                         Project Details
                     </h3>
