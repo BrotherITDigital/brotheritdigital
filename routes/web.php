@@ -21,6 +21,7 @@ use App\Http\Controllers\Admin\AdminContactController;
 use App\Http\Controllers\Admin\AdminSettingController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminClientController;
+use App\Http\Controllers\Admin\AdminPortfolioCategoryController;
 
 /* ===== PUBLIC ROUTES ===== */
 Route::get('/', [HomeController::class, 'index'])->name('home');
