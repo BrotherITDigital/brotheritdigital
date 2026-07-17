@@ -9,7 +9,9 @@ class PortfolioController extends Controller
     public function index()
     {
         $portfolios = Portfolio::active()->get();
-        $categories = $portfolios->pluck('category')->unique()->values();
+        $categories = \App\Models\PortfolioCategory::whereHas('portfolios', function($q) {
+            $q->where('is_active', true);
+        })->get();
         return view('pages.portfolio.index', compact('portfolios', 'categories'));
     }
 

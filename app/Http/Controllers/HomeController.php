@@ -17,7 +17,11 @@ class HomeController extends Controller
         $testimonials = Testimonial::active()->take(6)->get();
         $faqs         = Faq::active()->take(8)->get();
         $clients      = Client::active()->orderBy('order')->get();
+        
+        $categories = \App\Models\PortfolioCategory::whereHas('portfolios', function($q) {
+            $q->where('is_active', true)->where('is_featured', true);
+        })->get();
 
-        return view('pages.home', compact('services', 'portfolios', 'testimonials', 'faqs', 'clients'));
+        return view('pages.home', compact('services', 'portfolios', 'testimonials', 'faqs', 'clients', 'categories'));
     }
 }

@@ -29,11 +29,9 @@
         {{-- Filter Buttons --}}
         <div style="display: flex; flex-wrap: wrap; gap: .75rem; justify-content: center; margin-bottom: 3.5rem;" id="portfolio-filters">
             <button class="portfolio-filter-btn active" data-filter="all" id="filter-all-btn">All Projects</button>
-            <button class="portfolio-filter-btn" data-filter="website" id="filter-website-btn">Website</button>
-            <button class="portfolio-filter-btn" data-filter="mobile" id="filter-mobile-btn">Mobile App</button>
-            <button class="portfolio-filter-btn" data-filter="uiux" id="filter-uiux-btn">UI/UX Design</button>
-            <button class="portfolio-filter-btn" data-filter="wordpress_landing" id="filter-wordpress-btn">WordPress Landing Page</button>
-            <button class="portfolio-filter-btn" data-filter="custom_code_landing" id="filter-custom-btn">Custom Code Landing Page</button>
+            @foreach($categories as $cat)
+                <button class="portfolio-filter-btn" data-filter="{{ $cat->slug }}" id="filter-{{ $cat->slug }}-btn">{{ $cat->name }}</button>
+            @endforeach
         </div>
 
         {{-- Grid --}}
@@ -50,7 +48,7 @@
                 <div class="portfolio-overlay">
                     <div style="margin-bottom: .5rem;">
                         <span class="badge badge-primary" style="font-size: .7rem;">
-                            {{ $project->category === 'wordpress_landing' ? 'WordPress Landing Page' : ($project->category === 'custom_code_landing' ? 'Custom Code Landing Page' : ($project->category === 'uiux' ? 'UI/UX Design' : ($project->category === 'mobile' ? 'Mobile App' : 'Website'))) }}
+                            {{ $project->categoryModel ? $project->categoryModel->name : ucfirst(str_replace('_', ' ', $project->category)) }}
                         </span>
                     </div>
                     <h3 style="color: #fff; font-size: 1.125rem; font-weight: 700; margin-bottom: .5rem;">{{ $project->title }}</h3>

@@ -18,14 +18,15 @@ class AdminPortfolioController extends Controller
 
     public function create()
     {
-        return view('admin.portfolios.create');
+        $categories = \App\Models\PortfolioCategory::orderBy('name')->get();
+        return view('admin.portfolios.create', compact('categories'));
     }
 
     public function store(Request $request)
     {
         $data = $request->validate([
             'title'             => 'required|string|max:255',
-            'category'          => 'required|in:website,mobile,uiux,wordpress_landing,custom_code_landing',
+            'category'          => 'required|exists:portfolio_categories,slug',
             'short_description' => 'required|string|max:500',
             'description'       => 'nullable|string',
             'technologies'      => 'nullable|string',
@@ -60,14 +61,15 @@ class AdminPortfolioController extends Controller
 
     public function edit(Portfolio $portfolio)
     {
-        return view('admin.portfolios.edit', compact('portfolio'));
+        $categories = \App\Models\PortfolioCategory::orderBy('name')->get();
+        return view('admin.portfolios.edit', compact('portfolio', 'categories'));
     }
 
     public function update(Request $request, Portfolio $portfolio)
     {
         $data = $request->validate([
             'title'             => 'required|string|max:255',
-            'category'          => 'required|in:website,mobile,uiux,wordpress_landing,custom_code_landing',
+            'category'          => 'required|exists:portfolio_categories,slug',
             'short_description' => 'required|string|max:500',
             'description'       => 'nullable|string',
             'technologies'      => 'nullable|string',

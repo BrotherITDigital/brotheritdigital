@@ -38,4 +38,9 @@ class Portfolio extends Model
     {
         return $query->where('category', $category);
     }
+
+    public function categoryModel()
+    {
+        return $this->belongsTo(PortfolioCategory::class, 'category', 'slug');
+    }
 }

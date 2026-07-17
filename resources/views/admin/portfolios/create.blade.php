@@ -32,13 +32,15 @@
 
             {{-- Category --}}
             <div class="form-group">
-                <label for="category">Category <span style="color:#EF4444;">*</span></label>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:.5rem;">
+                    <label for="category" style="margin:0;">Category <span style="color:#EF4444;">*</span></label>
+                    <a href="{{ route('admin.portfolio-categories.index') }}" style="font-size:.75rem; color:var(--primary); text-decoration:none; font-weight:600;"><i class="fas fa-cog"></i> Manage</a>
+                </div>
                 <select id="category" name="category" class="form-control @error('category') error @enderror" style="height:auto;" required>
-                    <option value="website" {{ old('category') === 'website' ? 'selected' : '' }}>Website Development</option>
-                    <option value="mobile" {{ old('category') === 'mobile' ? 'selected' : '' }}>Mobile App Development</option>
-                    <option value="uiux" {{ old('category') === 'uiux' ? 'selected' : '' }}>UI/UX Design</option>
-                    <option value="wordpress_landing" {{ old('category') === 'wordpress_landing' ? 'selected' : '' }}>Wordpress Landing Page</option>
-                    <option value="custom_code_landing" {{ old('category') === 'custom_code_landing' ? 'selected' : '' }}>Custom Code Landing Page</option>
+                    <option value="" disabled selected>Select Category</option>
+                    @foreach($categories as $cat)
+                        <option value="{{ $cat->slug }}" {{ old('category') === $cat->slug ? 'selected' : '' }}>{{ $cat->name }}</option>
+                    @endforeach
                 </select>
                 @error('category')
                 <span style="color:#EF4444; font-size:.75rem; margin-top:.25rem; display:block;">{{ $message }}</span>
@@ -155,8 +157,8 @@
             </div>
         </div>
 
-        {{-- PDF Demo Upload (Conditionally shown for landing pages) --}}
-        <div class="form-group" id="pdf-upload-container" style="display:none; border: 1px solid #E2E8F0; padding: 1.25rem; border-radius: .75rem; background: #F8FAFC; margin-bottom: .5rem;">
+        {{-- PDF Demo Upload --}}
+        <div class="form-group" id="pdf-upload-container" style="border: 1px solid #E2E8F0; padding: 1.25rem; border-radius: .75rem; background: #F8FAFC; margin-bottom: .5rem;">
             <label for="pdf_file" style="font-weight:600; color:#0F172A; display:block; margin-bottom:.5rem;">
                 <i class="fas fa-file-pdf" style="color:#EF4444; margin-right:.375rem;"></i> Upload PDF Demo (Optional)
             </label>
@@ -264,24 +266,6 @@
         }
     }
 
-    // Toggle PDF field based on category selection
-    document.addEventListener('DOMContentLoaded', () => {
-        const categorySelect = document.getElementById('category');
-        const pdfContainer = document.getElementById('pdf-upload-container');
-
-        if (categorySelect && pdfContainer) {
-            function togglePdfField() {
-                const val = categorySelect.value;
-                if (val === 'wordpress_landing' || val === 'custom_code_landing') {
-                    pdfContainer.style.display = 'block';
-                } else {
-                    pdfContainer.style.display = 'none';
-                }
-            }
-
-            categorySelect.addEventListener('change', togglePdfField);
-            togglePdfField(); // Run on load
-        }
-    });
+    // PDF toggling removed (always visible for all categories)
 </script>
 @endpush

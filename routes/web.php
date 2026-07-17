@@ -75,6 +75,7 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 
     // Portfolio
     Route::resource('portfolios', AdminPortfolioController::class);
+    Route::resource('portfolio-categories', AdminPortfolioCategoryController::class);
 
     // Team
     Route::resource('team', AdminTeamController::class);

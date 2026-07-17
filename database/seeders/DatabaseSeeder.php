@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             FaqSeeder::class,
             BlogCategorySeeder::class,
             ClientSeeder::class,
+            PortfolioCategorySeeder::class,
         ]);
     }
 }

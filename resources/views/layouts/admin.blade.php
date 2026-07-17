@@ -41,6 +41,9 @@
             <a href="{{ route('admin.portfolios.index') }}" class="admin-sidebar-link {{ request()->routeIs('admin.portfolios*') ? 'active' : '' }}">
                 <i class="fas fa-folder-open" style="width:1.25rem;"></i> Portfolios
             </a>
+            <a href="{{ route('admin.portfolio-categories.index') }}" class="admin-sidebar-link {{ request()->routeIs('admin.portfolio-categories*') ? 'active' : '' }}">
+                <i class="fas fa-tags" style="width:1.25rem;"></i> Portfolio Categories
+            </a>
             <a href="{{ route('admin.team.index') }}" class="admin-sidebar-link {{ request()->routeIs('admin.team*') ? 'active' : '' }}">
                 <i class="fas fa-users" style="width:1.25rem;"></i> Team
             </a>
