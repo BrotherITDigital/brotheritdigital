@@ -53,8 +53,8 @@ Route::get('/run-migrations', function () {
         \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
         \Illuminate\Support\Facades\Artisan::call('db:seed', ['--force' => true]);
         return '<h1>Migrations and seeders ran successfully!</h1><p><a href="/">Go to Home</a></p>';
-    } catch (\Exception $e) {
-        return 'Error running migrations: ' . $e->getMessage();
+    } catch (\Throwable $e) {
+        return 'Error running migrations: ' . $e->getMessage() . '<br><br>Trace:<br><pre>' . $e->getTraceAsString() . '</pre>';
     }
 });
 
