@@ -21,7 +21,7 @@ class AppServiceProvider extends ServiceProvider
                 $settings = \App\Models\SiteSetting::pluck('value', 'key')->toArray();
                 view()->share('settings', $settings);
             }
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             // Fail silently if database is not set up yet
         }
     }
